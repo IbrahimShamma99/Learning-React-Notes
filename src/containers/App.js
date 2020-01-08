@@ -24,16 +24,13 @@ class App extends Component {
     static getDerivedStateFromProps(props, state) {
         console.log('[App.js] getDerivedStateFromProps', props);
         return state;
-    }
-
-    componentWillMount() {
-        console.log('[App.js] componentWillMount');
-    }
-
+    };
+    // componentWillMount() {
+    //     console.log('[App.js] componentWillMount');
+    // };
     componentDidMount() {
         console.log('[App.js] componentDidMount');
-    }
-
+    };
     nameChangedHandler = (event, id) => {
         const personIndex = this.state.persons.findIndex(p => {
             return p.id === id;
@@ -42,17 +39,11 @@ class App extends Component {
         const person = {
             ...this.state.persons[personIndex]
         };
-
-        // const person = Object.assign({}, this.state.persons[personIndex]);
-
         person.name = event.target.value;
-
         const persons = [...this.state.persons];
         persons[personIndex] = person;
-
         this.setState({ persons: persons });
     };
-
     deletePersonHandler = personIndex => {
         // const persons = this.state.persons.slice();
         const persons = [...this.state.persons];
@@ -85,10 +76,9 @@ class App extends Component {
             showPersons = { this.state.showPersons }
             persons = { this.state.persons }
             clicked = { this.togglePersonsHandler }
-            /> { persons } <
-            /div>
+            /> { persons } < /
+            div >
         );
-        // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
     }
 }
 
