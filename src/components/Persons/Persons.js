@@ -3,13 +3,23 @@ import React from 'react';
 import Person from './Person/Person';
 
 class Persons extends React.Component {
+
   shouldComponentUpdate(nextProps,nextState){
     console.log("[Persons.js] shouldComponentUpdate");
+    if (nextProps.persons !== this.props.persons){
     return true;
+  }
+  else{
+    return false;
   };
+};
+  
   getSnapshotBeforeUpdate(){
     console.log("[Persons.js] getSnapshotBeforeUpdate");
     return {message:"snapshot!"} ;
+  };
+  componentWillUnmount(){
+    console.log("[Persons.js] componentWillUnmount");
   };
   componentDidUpdate(prevProps,prevState,snapshot ) {
     console.log("[Persons.js] componentDidUpdate");
