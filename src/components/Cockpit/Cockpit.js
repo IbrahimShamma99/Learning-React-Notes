@@ -1,17 +1,20 @@
-import React, {useEffect} from 'react';
+import React, {useEffect ,useRef} from 'react';
 import classes from './Cockpit.css';
 
 const cockpit = ( props ) => {
+
+  const toggleBtnRef= useRef(null);
+
     //NOTE useEffect = ComponentDidMount + ComponentDidUpdate
     useEffect(()=>{
       console.log("[Cockpit.js] useEffect");
-      const timer = setTimeout(()=>{
-        alert("saved data to cloud");
+      //const timer = setTimeout(()=>{
+        //alert("saved data to cloud"); 
+        toggleBtnRef.current.click(); 
         return () => {
-          clearTimeout(timer);
+          // clearTimeout(timer);
           console.log("[Cockpit.js] cleanup useEffect");
         };
-      },1000); 
   },[
   ]
   );
@@ -39,6 +42,7 @@ const cockpit = ( props ) => {
             <h1>{props.title}</h1>
             <p className={assignedClasses.join( ' ' )}>This is really working!</p>
             <button
+                ref = {toggleBtnRef}
                 className={btnClass}
                 onClick={props.clicked}>Toggle Persons</button>
         </div>
