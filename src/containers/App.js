@@ -5,6 +5,8 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Aux';
 import withClass from '../hoc/WithClass';
+import AuthContext from '../context/auth-context';
+
 class App extends Component {
   constructor (props) {
     super (props);
@@ -20,7 +22,8 @@ class App extends Component {
     otherState: 'some other value',
     showPersons: false,
     showCockpit:true,
-    changeCounter:0
+    changeCounter:0,
+    authenticated:false
   };
   //NOTE is invoked right before calling the render method
   //ANCHOR static => it means that this component will be called once
@@ -58,6 +61,10 @@ class App extends Component {
     this.setState ({persons: persons});
   };
 
+  loginHandler = () => {
+    this.setState({authenticated:true});
+  };
+
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState ({showPersons: !doesShow});
@@ -73,6 +80,7 @@ class App extends Component {
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
           changed={this.nameChangedHandler}
+          isAuthenticated = {this.state.authenticated}
         />
       );
     }
@@ -80,17 +88,23 @@ class App extends Component {
     return (
       <Aux classes = {classes}>
           <button onClick={()=>{this.setState({showCockpit:false})}}>Remove Cockpit</button>
+        <AuthContext.Provider value={{
+          authenticated:this.state.authenticated,
+          login:this.loginHandler
+        }}>
         {this.state.showCockpit?
         <Cockpit
           title={this.props.appTitle}
           showPersons={this.state.showPersons}
           personsLength={this.state.persons.length}
           clicked={this.togglePersonsHandler}
+          login={this.loginHandler}
         />:null
         }
         {' '}
         {persons}
         {' '}
+        </AuthContext.Provider>
     </Aux>
     );
   }
