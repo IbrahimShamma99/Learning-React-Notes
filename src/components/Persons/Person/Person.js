@@ -3,7 +3,7 @@ import React from 'react';
 import classes from './Person.css';
 
 class Person extends React.Component {
-
+  
   render(){
   console.log('[Person.js] rendering...');
   return (
